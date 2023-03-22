@@ -1,4 +1,5 @@
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Lektion5 {
@@ -47,12 +48,58 @@ public class Lektion5 {
         return ergebnis;
     }
 
+    public static double quadratWurzel(){
+        System.out.println("Bitte gebe eine Zahl ein:");
+        Scanner scanner = new Scanner(System.in);
+        double x = scanner.nextDouble();
+
+        double schaetzwert = 1;
+        double speicher = 1;
+
+        for (int i = 0; i < 1000000000; i++) {
+            if(Math.abs(schaetzwert*schaetzwert - x) < 1E-3){
+                return schaetzwert;
+            }
+
+            schaetzwert = x / speicher;
+            speicher = (speicher + schaetzwert)/2;
+        }
+        return 0;
+    }
+
+    public static double piAnnaeherung(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bitte geben Sie die Anzahl der Rechtecke ein: ");
+        int x = scanner.nextInt();
+        double rechteckBreite = 1.0/x;
+        double summeBreiten = 1.0/x;
+        double zwischenErgebnis = 1.0;
+        double pi = 0;
+
+        for (int i = x; i > 0; i--) {
+            pi += zwischenErgebnis * rechteckBreite;
+            zwischenErgebnis = Math.sqrt(1 - Math.pow(summeBreiten, 2));
+            summeBreiten += 1.0/x;
+        }
+        return 4.0 * pi;
+    }
+
+    public static void test(){
+
+        String normalName = "Giraffe";
+        StringBuilder sb = new StringBuilder(normalName);
+          String name = "";
+
+        Random zufall = new Random();
 
 
+        while(!sb.isEmpty()) {
+            int index = zufall.nextInt(sb.length());
 
-
-
-
-
+            name = name + sb.substring(index, index+1);
+           sb.deleteCharAt(index);
+        };
+        System.out.println(name);
+    }
 
 }
